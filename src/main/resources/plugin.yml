@@ -1,0 +1,9 @@
+name: ItemTable
+version: 1.0.0
+main: io.github.pyke.ItemTable
+author:
+  - Pyke-Lee
+api-version: '1.21.4'
+commands:
+  ItemTable:
+    usage: /<command>
