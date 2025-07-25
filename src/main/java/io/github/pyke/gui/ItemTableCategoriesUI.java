@@ -53,7 +53,6 @@ public class ItemTableCategoriesUI implements Listener {
                 String iconJson = rs.getString("icon_json");
 
                 ItemStack icon = ItemSerializer.deserialize(iconJson);
-                if (icon == null) continue;
 
                 var meta = icon.getItemMeta();
                 if (meta == null) continue;
@@ -130,7 +129,8 @@ public class ItemTableCategoriesUI implements Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent event) {
-        if (!event.getView().title().toString().contains("ItemTable")) { return; }
+        String title = PlainTextComponentSerializer.plainText().serialize(event.getView().title());
+        if (!title.equals("ItemTable Categories")) { return; }
 
         event.setCancelled(true);
 
@@ -150,6 +150,15 @@ public class ItemTableCategoriesUI implements Listener {
 
                 loadIconsFromDatabase();   // 삭제 후 아이콘 리스트 갱신
                 renderPage(player, iPage);
+            }
+            else if (event.getClick() == ClickType.MIDDLE) {
+                ItemStack clickedItem = event.getCurrentItem();
+                if (clickedItem == null || !clickedItem.hasItemMeta()) return;
+
+                String displayName = PlainTextComponentSerializer.plainText().serialize(Objects.requireNonNull(clickedItem.getItemMeta().displayName()));
+                if (displayName.isEmpty()) return;
+
+                new ItemTableItemsUI(plugin, displayName).open(player);
             }
         }
 
