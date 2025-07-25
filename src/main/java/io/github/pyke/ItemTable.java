@@ -2,7 +2,6 @@ package io.github.pyke;
 
 import io.github.pyke.commands.ItemTableCmd;
 import io.github.pyke.data.MySQLManager;
-import io.github.pyke.util.ItemSerializer;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
@@ -21,7 +20,6 @@ public class ItemTable extends JavaPlugin {
             return;
         }
 
-        ItemSerializer.setLogger(this.getLogger());
         Objects.requireNonNull(getCommand("ItemTable")).setExecutor(new ItemTableCmd(this));
     }
 
