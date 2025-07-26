@@ -8,6 +8,7 @@ import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -15,8 +16,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.SQLException;
+import java.util.Collections;
+import java.util.List;
 
-public class ItemTableCmd implements CommandExecutor {
+public class ItemTableCmd implements CommandExecutor, TabCompleter {
     private final ItemTable plugin;
 
     public ItemTableCmd(ItemTable plugin) {
@@ -104,5 +107,10 @@ public class ItemTableCmd implements CommandExecutor {
 
         player.sendMessage("§c잘못된 명령어입니다.");
         return true;
+    }
+
+    @Override
+    public @NotNull List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String @NotNull [] args) {
+        return Collections.emptyList();
     }
 }
